@@ -157,7 +157,7 @@ app.put("/students/update", upload.single("studentphoto"), async (req, res) => {
 
 
 
-router.delete("/students/delete/:id", async (req, res) => {
+app.delete("/students/delete/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const student = await students.findById(id);

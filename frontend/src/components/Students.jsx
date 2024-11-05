@@ -11,15 +11,19 @@ function Students() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    console.log("API URL: ", process.env.REACT_APP_API_URL); //checking
     fetch(`${process.env.REACT_APP_API_URL}/students`)
       .then((res) => {
-        if (res.ok) {
-          return res.json();
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
         }
+        return res.json();
       })
-      .then((jsonres) => setStudent(jsonres));
+      .then((jsonres) => setStudent(jsonres))
+      .catch((error) => {
+        console.error('Error fetching students:', error);
+      });
   }, []);
+  
 
   function createCard(stndt) {
     return (

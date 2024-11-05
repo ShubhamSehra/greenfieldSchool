@@ -11,6 +11,7 @@ function Students() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
+    console.log("API URL: ", process.env.REACT_APP_API_URL);
     fetch(`${process.env.REACT_APP_API_URL}/students`)
       .then((res) => {
         if (res.ok) {

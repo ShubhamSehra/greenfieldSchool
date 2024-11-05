@@ -6,11 +6,13 @@ const cors = require("cors");
 const multer = require("multer");
 const AWS = require('aws-sdk')
 const app = express();
+const router = express.Router();
 
 const PORT = process.env.PORT || 5000
 
 app.use(cors({origin : 'https://thegreenfield.netlify.app', credentials: true}));
 app.options('*', cors());
+
 app.use(express.json());
 
 //*** db has my id passs  **** */
@@ -46,7 +48,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 
 
-app.post("/newentry", upload.single("photo"), (req, res) => {
+router.post("/newentry", upload.single("photo"), (req, res) => {
   const photo = req.file;
   const s3Key = `${Date.now()}_${photo.originalname}`;
       const uploadParams = {
@@ -85,14 +87,14 @@ app.post("/newentry", upload.single("photo"), (req, res) => {
   });
 });
 
-app.get("/students", (req, res) => {
+router.get("/students", (req, res) => {
   students.find().then((foundUser) => res.json(foundUser));
 });
 
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
-app.put("/students/update", upload.single("studentphoto"), async (req, res) => {
+router.put("/students/update", upload.single("studentphoto"), async (req, res) => {
   const studentId = req.body.id;
 
   const datatopass = {
@@ -155,7 +157,7 @@ app.put("/students/update", upload.single("studentphoto"), async (req, res) => {
 
 
 
-app.delete("/students/delete/:id", async (req, res) => {
+router.delete("/students/delete/:id", async (req, res) => {
   const id = req.params.id;
   try {
     const student = await students.findById(id);

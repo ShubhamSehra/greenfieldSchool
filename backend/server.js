@@ -6,7 +6,7 @@ const cors = require("cors");
 const multer = require("multer");
 const AWS = require('aws-sdk')
 const app = express();
-const router = express.Router();
+
 
 const PORT = process.env.PORT || 5000
 
@@ -48,7 +48,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 
 
-router.post("/newentry", upload.single("photo"), (req, res) => {
+app.post("/newentry", upload.single("photo"), (req, res) => {
   const photo = req.file;
   const s3Key = `${Date.now()}_${photo.originalname}`;
       const uploadParams = {
@@ -87,14 +87,14 @@ router.post("/newentry", upload.single("photo"), (req, res) => {
   });
 });
 
-router.get("/students", (req, res) => {
+app.get("/students", (req, res) => {
   students.find().then((foundUser) => res.json(foundUser));
 });
 
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
-router.put("/students/update", upload.single("studentphoto"), async (req, res) => {
+app.put("/students/update", upload.single("studentphoto"), async (req, res) => {
   const studentId = req.body.id;
 
   const datatopass = {

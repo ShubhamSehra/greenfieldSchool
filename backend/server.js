@@ -7,6 +7,8 @@ const multer = require("multer");
 const AWS = require('aws-sdk')
 const app = express();
 
+const PORT = process.env.PORT || 5000
+
 app.use(cors());
 
 app.use(express.json());
@@ -183,6 +185,6 @@ app.delete("/students/delete/:id", async (req, res) => {
   }
 });
 
-app.listen(3001, (req, res) => {
-  console.log("we are online at 3001");
+app.listen(PORT, (req, res) => {
+  console.log(`we are online at ${PORT}`);
 });

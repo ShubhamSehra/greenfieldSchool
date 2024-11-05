@@ -10,7 +10,7 @@ function StudentProfile() {
   useEffect(() => {
     const getStudent = async () => {
       try {
-        const response = await axios.get('/students');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/students`);
         const res = response.data.find(found => found._id === studentId);
         setStudent(res);
       } catch (error) {

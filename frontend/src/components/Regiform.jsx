@@ -36,7 +36,7 @@ function Regiform(props) {
           formData.append(key, info[key]);
         }
 
-        await axios.post("http://localhost:3001/newentry", formData);
+        await axios.post(`${process.env.REACT_APP_API_URL}/newentry`, formData);
         swal("Student Enrolled!", "", "success").then(navigate(-1));
         setValidated(true);
       } catch (error) {
@@ -63,7 +63,7 @@ function Regiform(props) {
     }
 
     try {
-      await axios.put("http://localhost:3001/students/update", formData);
+      await axios.put(`${process.env.REACT_APP_API_URL}/students/update`, formData);
       swal({ title: "Profile updated!", icon: "success", button: "Ok" }).then(() => {
         navigate(-1);
       });

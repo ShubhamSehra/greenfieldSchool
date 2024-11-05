@@ -21,7 +21,7 @@ function Stprofile(props) {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          await axios.delete(`http://localhost:3001/students/delete/${id}`)
+          await axios.delete(`${process.env.REACT_APP_API_URL}/students/delete/${id}`)
             .then(() => { navigate("/") })
             .catch((error) => { console.log(error) });
 

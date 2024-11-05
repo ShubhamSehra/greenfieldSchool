@@ -13,7 +13,7 @@ const Editpage = () => {
   const getStudent = () => {
     setLoading(true);
     axios
-      .get("/students")
+      .get(`${process.env.REACT_APP_API_URL}/students`)
       .then((response) => {
         const res = response.data.find((found) => found._id === studentId);
         setStudentData(res);

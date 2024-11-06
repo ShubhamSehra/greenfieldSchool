@@ -15,8 +15,12 @@ app.use(cors({
   credentials: true
 }));
 
+app.options('*', cors());
 
-app.use(express.json());
+app.use(express.json()); 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
 
 //*** db has my id passs  **** */
 

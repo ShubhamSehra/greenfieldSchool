@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 
 function Students() {
   const [student, setStudent] = useState([]);
-  const [error, setError] = useState(null)
+  
   const [searchParams, setSearchParams] = useSearchParams();
 
   // useEffect (() =>{
@@ -23,7 +23,10 @@ function Students() {
   //   getData()
   // },[])
   useEffect(() => { 
-    fetch(`${process.env.REACT_APP_API_URL}/students`)
+    fetch('https://greenfield-lg3s.onrender.com/students',{
+      method: 'GET',
+      credentials: "include"
+    })
     .then((res) => { 
       if (!res.ok) { 
         throw new Error(`HTTP error! status: ${res.status}`); 
@@ -31,7 +34,7 @@ function Students() {
       return res.json(); 
     })
     .then((jsonres) => setStudent(jsonres))
-    .catch((error) => { setError(error.message); 
+    .catch((error) => {  
       console.error('Error fetching students:', error); 
     }); 
   }, [])

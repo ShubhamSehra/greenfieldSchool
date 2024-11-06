@@ -7,22 +7,48 @@ import { useSearchParams } from "react-router-dom";
 
 function Students() {
   const [student, setStudent] = useState([]);
-
+  const [error, setError] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => {
+  // useEffect (() =>{
+  //   const getData = async() =>{
+  //     try {
+  //       const response = await axios.get(`${process.env.REACT_APP_API_URL}/students`)
+  //       setStudent(response.data)
+  //     } catch (error) {
+  //       console.log(error);
+        
+  //     }
+  //   }
+  //   getData()
+  // },[])
+  useEffect(() => { 
     fetch(`${process.env.REACT_APP_API_URL}/students`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((jsonres) => setStudent(jsonres))
-      .catch((error) => {
-        console.error('Error fetching students:', error);
-      });
-  }, []);
+    .then((res) => { 
+      if (!res.ok) { 
+        throw new Error(`HTTP error! status: ${res.status}`); 
+      } 
+      return res.json(); 
+    })
+    .then((jsonres) => setStudent(jsonres))
+    .catch((error) => { setError(error.message); 
+      console.error('Error fetching students:', error); 
+    }); 
+  }, [])
+
+  // useEffect(() => {
+  //   fetch(`${process.env.REACT_APP_API_URL}/students`)
+  //     .then((res) => {
+  //       if (!res.ok) {
+  //         throw new Error(`HTTP error! status: ${res.status}`);
+  //       }
+  //       return res.json();
+  //     })
+  //     .then((jsonres) => setStudent(jsonres))
+  //     .catch((error) => {
+  //       console.error('Error fetching students:', error);
+  //     });
+  // }, []);
   
 
   function createCard(stndt) {

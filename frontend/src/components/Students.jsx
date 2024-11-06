@@ -93,14 +93,24 @@ function Students() {
       <br />
   
 
-      {student
+      {Array.isArray(student) && student
+  .filter((student) => {
+    const filter = searchParams.get("filter");
+    if (!filter) return true;
+    const name = student.fname.toLowerCase();
+    return name.startsWith(filter.toLowerCase());
+  })
+  .map(createCard)
+}
+
+      {/* {student
         .filter((student) => {
           const filter = searchParams.get("filter");
           if (!filter) return true;
           const name = student.fname.toLowerCase();
           return name.startsWith(filter.toLowerCase());
         })
-        .map(createCard)}
+        .map(createCard)} */}
     </div>
   );
 }
